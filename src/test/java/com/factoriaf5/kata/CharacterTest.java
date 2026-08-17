@@ -1,7 +1,7 @@
 package com.factoriaf5.kata;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 public class CharacterTest {
@@ -16,6 +16,12 @@ public class CharacterTest {
     public void shouldStartWith1Level() {
         Character character = new Character();
         assertEquals(1, character.getLevel());
+    }
+
+    @Test
+    public void shouldStartAlive() {
+        Character character = new Character();
+        assertTrue(character.isAlive());
     }
 
 }
