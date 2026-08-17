@@ -24,4 +24,16 @@ public class CharacterTest {
         assertTrue(character.isAlive());
     }
 
+    @Test
+    public void shouldReduceHealthWhenDamaged() {
+        Character attacker = new Character();
+        Character target = new Character();
+        attacker.dealDamage(target, 100);
+        assertEquals(900, target.getHealth());
+    }
+
+
+    /*Un personaje puede curar a otro personaje.
+    Los personajes muertos no pueden ser curados.
+    La curación no puede elevar la salud por encima de 1000. */
 }

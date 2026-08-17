@@ -18,4 +18,13 @@ public class Character {
         return isAlive;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void dealDamage(Character target, int amount) {
+        int newHealth = target.getHealth() - amount;
+        target.setHealth(newHealth);
+    }
+
 }
