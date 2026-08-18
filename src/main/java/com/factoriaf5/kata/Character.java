@@ -27,6 +27,10 @@ public class Character {
     }
 
     public void dealDamage(Character target, int amount) {
+        if (this == target) {
+            return;
+        }
+
         int newHealth = target.getHealth() - amount;
 
         if (newHealth < 0) {
@@ -41,6 +45,7 @@ public class Character {
     }
 
     public void heal(Character target, int amount) {
+
         if (!target.isAlive()) {
             return;
         }
@@ -53,6 +58,5 @@ public class Character {
 
         target.setHealth(newHealth);
     }
-
 
 }

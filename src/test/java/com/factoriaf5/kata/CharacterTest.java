@@ -82,4 +82,13 @@ public void shouldNotExceedMaxHealthWhenHealed() {
     assertEquals(1000, target.getHealth());
 }
 
+@Test
+public void shouldNotDamageSelf() {
+    Character character = new Character();
+
+    character.dealDamage(character, 100);
+
+    assertEquals(1000, character.getHealth());
+}
+
 }
