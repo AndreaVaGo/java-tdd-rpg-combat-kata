@@ -51,44 +51,52 @@ public class CharacterTest {
 
     @Test
     public void shouldIncreaseHealthWhenHealed() {
-        Character healer = new Character();
-        Character target = new Character();
+        Character character = new Character();
+        character.setHealth(500);
 
-        healer.dealDamage(target, 500);
-        healer.heal(target, 200);
+        character.heal(character, 200);
 
-        assertEquals(700, target.getHealth());
+        assertEquals(700, character.getHealth());
     }
 
     @Test
-public void shouldNotHealWhenDead() {
-    Character healer = new Character();
-    Character target = new Character();
+    public void shouldNotHealWhenDead() {
+        Character healer = new Character();
+        Character target = new Character();
 
-    healer.dealDamage(target, 1500);
-    healer.heal(target, 1000);
+        healer.dealDamage(target, 1500);
+        healer.heal(target, 1000);
 
-    assertEquals(0, target.getHealth());
-}
+        assertEquals(0, target.getHealth());
+    }
 
-@Test
-public void shouldNotExceedMaxHealthWhenHealed() {
-    Character healer = new Character();
-    Character target = new Character();
+    @Test
+    public void shouldNotExceedMaxHealthWhenHealed() {
+        Character character = new Character();
 
-    healer.dealDamage(target, 100);
-    healer.heal(target, 200);
+        character.dealDamage(character, 100);
+        character.heal(character, 200);
 
-    assertEquals(1000, target.getHealth());
-}
+        assertEquals(1000, character.getHealth());
+    }
 
-@Test
-public void shouldNotDamageSelf() {
-    Character character = new Character();
+    @Test
+    public void shouldNotDamageSelf() {
+        Character character = new Character();
 
-    character.dealDamage(character, 100);
+        character.dealDamage(character, 100);
 
-    assertEquals(1000, character.getHealth());
-}
+        assertEquals(1000, character.getHealth());
+    }
+
+    @Test
+    public void shouldOnlyHealSelf() {
+        Character healer = new Character();
+        Character target = new Character();
+
+        healer.dealDamage(target, 200);
+        healer.heal(target, 200);
+        assertEquals(800, target.getHealth());
+    }
 
 }
