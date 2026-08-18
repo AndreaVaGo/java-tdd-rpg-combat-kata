@@ -59,4 +59,15 @@ public class CharacterTest {
 
         assertEquals(700, target.getHealth());
     }
+
+    @Test
+public void shouldNotHealWhenDead() {
+    Character healer = new Character();
+    Character target = new Character();
+
+    healer.dealDamage(target, 1500);
+    healer.heal(target, 1000);
+
+    assertEquals(0, target.getHealth());
+}
 }
