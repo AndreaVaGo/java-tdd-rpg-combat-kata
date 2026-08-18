@@ -40,4 +40,9 @@ public class Character {
         target.setHealth(newHealth);
     }
 
+    public void heal(Character target, int amount) {
+    int newHealth = target.getHealth() + amount;
+    target.setHealth(newHealth);
+}
+
 }
