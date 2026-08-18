@@ -22,6 +22,10 @@ public class Character {
         this.health = health;
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public void setAlive(boolean alive) {
         this.isAlive = alive;
     }
