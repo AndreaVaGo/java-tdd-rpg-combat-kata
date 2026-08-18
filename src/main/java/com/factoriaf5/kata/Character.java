@@ -42,12 +42,17 @@ public class Character {
 
     public void heal(Character target, int amount) {
         if (!target.isAlive()) {
-    return;
-}
-    int newHealth = target.getHealth() + amount;
-    target.setHealth(newHealth);
-    }
+            return;
+        }
 
+        int newHealth = target.getHealth() + amount;
+
+        if (newHealth > 1000) {
+            newHealth = 1000;
+        }
+
+        target.setHealth(newHealth);
+    }
 
 
 }
