@@ -1,6 +1,7 @@
 package com.factoriaf5.kata;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -32,8 +33,13 @@ public class CharacterTest {
         assertEquals(900, target.getHealth());
     }
 
+    @Test
+    public void shouldDieWhenDamageExceedsHealth() {
+        Character attacker = new Character();
+        Character target = new Character();
+        attacker.dealDamage(target, 1500);
+        assertEquals(0, target.getHealth());
+        assertFalse(target.isAlive());
+    }
 
-    /*Un personaje puede curar a otro personaje.
-    Los personajes muertos no pueden ser curados.
-    La curación no puede elevar la salud por encima de 1000. */
 }

@@ -22,8 +22,21 @@ public class Character {
         this.health = health;
     }
 
+    public void setAlive(boolean alive) {
+        this.isAlive = alive;
+    }
+
     public void dealDamage(Character target, int amount) {
         int newHealth = target.getHealth() - amount;
+
+        if (newHealth < 0) {
+            newHealth = 0;
+        }
+
+        if (newHealth == 0) {
+            target.setAlive(false);
+        }
+
         target.setHealth(newHealth);
     }
 
