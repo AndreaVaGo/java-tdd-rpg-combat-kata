@@ -35,6 +35,10 @@ public class Character {
             return;
         }
 
+        if (target.getLevel() - this.getLevel() >= 5) {
+            amount = amount / 2;
+        }
+
         int newHealth = target.getHealth() - amount;
 
         if (newHealth < 0) {
