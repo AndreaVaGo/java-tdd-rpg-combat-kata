@@ -33,7 +33,7 @@ public class CharacterTest {
         Character attacker = new Character();
         Character target = new Character();
 
-        attacker.dealDamage(target, 100);
+        attacker.dealDamage(target, 100, 1);
 
         assertEquals(900, target.getHealth());
     }
@@ -43,7 +43,7 @@ public class CharacterTest {
         Character attacker = new Character();
         Character target = new Character();
 
-        attacker.dealDamage(target, 1500);
+        attacker.dealDamage(target, 1500, 1);
 
         assertEquals(0, target.getHealth());
         assertFalse(target.isAlive());
@@ -64,7 +64,7 @@ public class CharacterTest {
         Character healer = new Character();
         Character target = new Character();
 
-        healer.dealDamage(target, 1500);
+        healer.dealDamage(target, 1500, 1);
         healer.heal(target, 1000);
 
         assertEquals(0, target.getHealth());
@@ -74,7 +74,7 @@ public class CharacterTest {
     public void shouldNotExceedMaxHealthWhenHealed() {
         Character character = new Character();
 
-        character.dealDamage(character, 100);
+        character.dealDamage(character, 100, 1);
         character.heal(character, 200);
 
         assertEquals(1000, character.getHealth());
@@ -84,7 +84,7 @@ public class CharacterTest {
     public void shouldNotDamageSelf() {
         Character character = new Character();
 
-        character.dealDamage(character, 100);
+        character.dealDamage(character, 100, 1);
 
         assertEquals(1000, character.getHealth());
     }
@@ -94,7 +94,7 @@ public class CharacterTest {
         Character healer = new Character();
         Character target = new Character();
 
-        healer.dealDamage(target, 200);
+        healer.dealDamage(target, 200, 1);
         healer.heal(target, 200);
         assertEquals(800, target.getHealth());
     }
@@ -105,7 +105,7 @@ public class CharacterTest {
         Character target = new Character();
 
         target.setLevel(6);
-        attacker.dealDamage(target, 100);
+        attacker.dealDamage(target, 100, 1);
 
         assertEquals(950, target.getHealth());
     }
@@ -116,7 +116,7 @@ public class CharacterTest {
         Character target = new Character();
 
         attacker.setLevel(6);
-        attacker.dealDamage(target, 100);
+        attacker.dealDamage(target, 100, 1);
 
         assertEquals(850, target.getHealth());
     }

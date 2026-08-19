@@ -7,6 +7,10 @@ public class Character {
     private boolean isAlive = true;
     private int range = 2;
 
+    public int getRange() {
+        return range;
+    }
+
     public void setRange(int range) {
         this.range = range;
     }
@@ -47,13 +51,7 @@ public class Character {
         return amount;
     }
 
-    public void dealDamage(Character target, int amount) {
-        if (this == target) {
-            return;
-        }
-
-        amount = calculateDamage(target, amount);
-
+    private void applyDamage(Character target, int amount) {
         int newHealth = target.getHealth() - amount;
 
         if (newHealth < 0) {
@@ -65,6 +63,19 @@ public class Character {
         }
 
         target.setHealth(newHealth);
+    }
+
+    public void dealDamage(Character target, int amount, int distance) {
+        if (this == target) {
+            return;
+        }
+
+        if (distance > this.getRange()) {
+            return;
+        }
+
+        amount = calculateDamage(target, amount);
+        applyDamage(target, amount);
     }
 
     public void heal(Character target, int amount) {
