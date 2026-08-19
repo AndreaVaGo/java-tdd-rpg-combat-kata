@@ -82,6 +82,10 @@ public class Character {
             return;
         }
 
+        if (this.isAllyOf(target)) {
+            return;
+        }
+
         amount = calculateDamage(target, amount);
         applyDamage(target, amount);
     }
@@ -110,6 +114,15 @@ public class Character {
 
     public void leaveFaction(String faction) {
         factions.remove(faction);
+    }
+
+    private boolean isAllyOf(Character target) {
+        for (String faction : this.factions) {
+            if (target.getFactions().contains(faction)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
