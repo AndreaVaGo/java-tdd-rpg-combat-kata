@@ -11,6 +11,10 @@ public class Character {
     private int range = 2;
     private Set<String> factions = new HashSet<>();
 
+    public Set<String> getFactions() {
+        return factions;
+    }
+
     public int getRange() {
         return range;
     }

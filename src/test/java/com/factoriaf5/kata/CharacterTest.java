@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
-import java.util.Set;
-import java.util.HashSet;
 
 public class CharacterTest {
 
@@ -131,6 +129,24 @@ public class CharacterTest {
         attacker.dealDamage(target, 100, 20);
 
         assertEquals(1000, target.getHealth());
+    }
+
+    @Test
+    public void shouldJoinFaction() {
+        Character character = new Character();
+
+        character.joinFaction("Elfos");
+
+        assertTrue(character.getFactions().contains("Elfos"));
+    }
+
+    @Test
+    public void shouldLeaveFaction() {
+        Character character = new Character();
+        character.joinFaction("Elfos");
+        character.leaveFaction("Elfos");
+
+        assertFalse(character.getFactions().contains("Elfos"));
     }
 
 }
