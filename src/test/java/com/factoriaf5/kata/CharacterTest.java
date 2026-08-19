@@ -160,4 +160,16 @@ public class CharacterTest {
         assertEquals(1000, target.getHealth());
     }
 
+    @Test
+    public void shouldHealAllies() {
+        Character healer = new Character();
+        Character target = new Character();
+        healer.joinFaction("Elfos");
+        target.joinFaction("Elfos");
+        target.setHealth(100);
+        healer.heal(target, 200);
+
+        assertEquals(300, target.getHealth());
+    }
+
 }

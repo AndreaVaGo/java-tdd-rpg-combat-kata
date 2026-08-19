@@ -6,6 +6,10 @@ import java.util.HashSet;
 public class Character {
 
     private int health = 1000;
+    public void setFactions(Set<String> factions) {
+        this.factions = factions;
+    }
+
     private int level = 1;
     private boolean isAlive = true;
     private int range = 2;
