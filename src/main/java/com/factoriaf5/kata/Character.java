@@ -5,6 +5,11 @@ public class Character {
     private int health = 1000;
     private int level = 1;
     private boolean isAlive = true;
+    private int range = 2;
+
+    public void setRange(int range) {
+        this.range = range;
+    }
 
     public int getHealth() {
         return health;
