@@ -30,14 +30,24 @@ public class Character {
         this.isAlive = alive;
     }
 
+    private int calculateDamage(Character target, int amount) {
+        if (target.getLevel() - this.getLevel() >= 5) {
+            amount = amount / 2;
+        }
+
+        if (this.getLevel() - target.getLevel() >= 5) {
+            amount = amount + amount / 2;
+        }
+
+        return amount;
+    }
+
     public void dealDamage(Character target, int amount) {
         if (this == target) {
             return;
         }
 
-        if (target.getLevel() - this.getLevel() >= 5) {
-            amount = amount / 2;
-        }
+        amount = calculateDamage(target, amount);
 
         int newHealth = target.getHealth() - amount;
 

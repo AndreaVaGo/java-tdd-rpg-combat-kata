@@ -110,4 +110,15 @@ public class CharacterTest {
         assertEquals(950, target.getHealth());
     }
 
+    @Test
+    public void shouldIncreaseDamageWhenTargetIsLowerLevel() {
+        Character attacker = new Character();
+        Character target = new Character();
+
+        attacker.setLevel(6);
+        attacker.dealDamage(target, 100);
+
+        assertEquals(850, target.getHealth());
+    }
+
 }
