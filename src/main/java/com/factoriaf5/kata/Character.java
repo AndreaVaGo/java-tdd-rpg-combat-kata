@@ -1,11 +1,15 @@
 package com.factoriaf5.kata;
 
+import java.util.Set;
+import java.util.HashSet;
+
 public class Character {
 
     private int health = 1000;
     private int level = 1;
     private boolean isAlive = true;
     private int range = 2;
+    private Set<String> factions = new HashSet<>();
 
     public int getRange() {
         return range;
@@ -94,6 +98,14 @@ public class Character {
         }
 
         target.setHealth(newHealth);
+    }
+
+    public void joinFaction(String faction) {
+        factions.add(faction);
+    }
+
+    public void leaveFaction(String faction) {
+        factions.remove(faction);
     }
 
 }

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import java.util.Set;
+import java.util.HashSet;
 
 public class CharacterTest {
 
@@ -119,6 +121,16 @@ public class CharacterTest {
         attacker.dealDamage(target, 100, 1);
 
         assertEquals(850, target.getHealth());
+    }
+
+    @Test
+    public void shouldNotDamageWhenOutOfRange() {
+        Character attacker = new Character();
+        Character target = new Character();
+
+        attacker.dealDamage(target, 100, 20);
+
+        assertEquals(1000, target.getHealth());
     }
 
 }
