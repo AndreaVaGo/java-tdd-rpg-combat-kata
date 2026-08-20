@@ -5,3 +5,5 @@ public interface Damageable {
     void setHealth(int health);
     void setAlive(boolean alive);
 }
+
+
