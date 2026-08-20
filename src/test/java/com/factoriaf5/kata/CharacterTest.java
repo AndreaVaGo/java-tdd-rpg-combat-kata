@@ -172,4 +172,13 @@ public class CharacterTest {
         assertEquals(300, target.getHealth());
     }
 
+    @Test
+    public void shouldDamageProp() {
+        Character attacker = new Character();
+        Prop prop = new Prop();
+        attacker.dealDamageToProp(prop, 100);
+
+        assertEquals(900, prop.getHealth());
+    }
+
 }
