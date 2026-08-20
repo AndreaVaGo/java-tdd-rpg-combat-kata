@@ -126,4 +126,18 @@ public class Character implements Damageable {
         return false;
     }
 
+    public void dealDamageToProp(Prop prop, int amount) {
+    int newHealth = prop.getHealth() - amount;
+
+    if (newHealth < 0) {
+        newHealth = 0;
+    }
+
+    if (newHealth == 0) {
+        prop.setAlive(false);
+    }
+
+    prop.setHealth(newHealth);
+}
+
 }
