@@ -181,4 +181,13 @@ public class CharacterTest {
         assertEquals(900, prop.getHealth());
     }
 
+    @Test
+    public void shouldDestroyPropWhenHealthReachesZero() {
+        Character attacker = new Character();
+        Prop prop = new Prop();
+
+        attacker.dealDamageToProp(prop, 1000);
+
+        assertFalse(prop.isAlive());
+    }
 }
