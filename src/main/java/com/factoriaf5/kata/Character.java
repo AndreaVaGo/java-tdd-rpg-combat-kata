@@ -3,12 +3,9 @@ package com.factoriaf5.kata;
 import java.util.Set;
 import java.util.HashSet;
 
-public class Character {
+public class Character implements Damageable {
 
     private int health = 1000;
-    public void setFactions(Set<String> factions) {
-        this.factions = factions;
-    }
 
     private int level = 1;
     private boolean isAlive = true;
