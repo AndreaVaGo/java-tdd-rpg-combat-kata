@@ -1,76 +1,73 @@
+# Kata RPG Combat - Java TDD
 
-# Kata RPG Combat
+**Repositorio:** https://github.com/AndreaVaGo/kata-java-tdd-RPG-Combat
 
-Background This is a fun kata that has the programmer building simple combat rules, as for a role-playing game (RPG). It is implemented as a sequence of iterations. The domain doesn't include a map kills or any other character sapart from their ability to damage and heal one another.
+## Descripción
 
-## Requiered
+Kata de TDD (Test-Driven Development) que consiste en implementar las reglas de combate de un juego de rol (RPG) siguiendo el ciclo Red-Green: escribir primero un test que falla, y después el código mínimo para que pase.
 
-- Minimum Java 21
+El dominio del juego incluye personajes que pueden dañarse y curarse entre sí, con reglas de nivel, alcance, facciones/alianzas, y objetos del entorno (accesorios) que también pueden ser dañados.
 
-## DevDependency
+## Tecnologías
 
-- JUnit
-- Hamcrest
+- Java 21
+- Maven
+- JUnit 5 (5.12.0)
+- Hamcrest 2.2
+- JaCoCo (cobertura de tests)
 
-## Installation
+## Estructura del proyecto
 
-Just clone the Kata
+- `Character.java` — clase principal del personaje: salud, nivel, vida, alcance, facciones, y toda la lógica de combate (daño, curación).
+- `Damageable.java` — interfaz que define el contrato mínimo para poder recibir daño (`getHealth`, `setHealth`, `setAlive`). La implementan tanto `Character` como `Prop`.
+- `Prop.java` — clase para objetos del entorno (accesorios) que pueden ser dañados y destruidos, pero no atacan ni se curan.
 
-    
-## Instructions
-Complete each iteration before reading the next one. 2. It's recommended you perform this kata with a pairing partner and while writing tests.
+## Iteraciones implementadas
 
-1. Iteration One:
-    - All Characters, when created, have:
-        * Health, starting at 1000 
-        * Level, starting at 1 
-        * May be Alive or Dead, starting Alive (Alive may be a true/false) 
-    - Characters can Deal Damage to Characters.
-        * Damage is subtracted from Health 
-        * When damage received exceeds current Health, Health becomes 0 and the character dies 
-    - A Character can Heal a Character. 
-        * Dead characters cannot be healed 
-        * Healing cannot raise health above 1000
+### Iteración 1 — Reglas básicas
+- Los personajes nacen con 1000 de salud, nivel 1 y vivos.
+- Pueden infligir daño a otros personajes (la salud nunca baja de 0; al llegar a 0 el personaje muere).
+- Pueden curar a otros personajes (no se puede curar a un personaje muerto, ni superar el máximo de 1000 de salud).
 
-2. Iteration Two:
-    - A Character cannot Deal Damage to itself.
-    - A Character can only Heal itself. 
-    - When dealing damage:
-        * If the target is 5 or more Levels above the attacker, Damage is reduced by 50% 
-        * If the target is 5 or more levels below the attacker, Damage is increased by 50%
+### Iteración 2 — Restricciones de daño/curación y nivel
+- Un personaje no puede dañarse a sí mismo.
+- Un personaje solo puede curarse a sí mismo (o a un aliado, ver iteración 4).
+- Si el objetivo tiene 5 o más niveles por encima del atacante, el daño se reduce un 50%.
+- Si el objetivo tiene 5 o más niveles por debajo del atacante, el daño aumenta un 50%.
 
-3. Iteration Three:
-    - Characters have an attack Max Range. 
-    - Melee fighters have a range of 2 meters. 
-    - Ranged fighters have a range of 20 meters. 
-    - Characters must be in range to deal damage to a target.
+### Iteración 3 — Alcance de ataque
+- Cada personaje tiene un alcance máximo (por defecto 2 metros, cuerpo a cuerpo; configurable a 20 metros para combate a distancia).
+- Solo se puede infligir daño si la distancia al objetivo está dentro del alcance.
 
+### Iteración 4 — Facciones y aliados
+- Los personajes pueden unirse o abandonar una o más facciones (al crearse, no pertenecen a ninguna).
+- Dos personajes que comparten al menos una facción se consideran aliados.
+- Los aliados no pueden dañarse entre sí.
+- Los aliados sí pueden curarse mutuamente.
+
+### Iteración 5 — Objetos del entorno (accesorios)
+- Los personajes pueden dañar objetos que no son personajes (por ejemplo, un árbol), a través de la clase `Prop`.
+- Los accesorios no se pueden curar ni causan daño, y son neutrales (no pertenecen a ninguna facción).
+- Cuando la salud de un accesorio llega a 0, se destruye.
+
+## Decisiones de diseño
+
+- **Interfaz `Damageable` en vez de herencia**: `Character` y `Prop` no son el mismo tipo de "cosa" (uno lucha y cura, el otro no), pero ambos comparten la capacidad de recibir daño y tener salud. Por eso se modela como una interfaz (relación "puede hacer") en vez de herencia (relación "es un").
+- **Método `dealDamageToProp` separado de `dealDamage`**: por simplicidad, en vez de generalizar `dealDamage` para aceptar cualquier `Damageable` (lo que requeriría comprobaciones de tipo más avanzadas), se optó por un método específico para dañar accesorios, con una lógica más simple (sin niveles, sin alianzas, sin distancia).
+- **Métodos privados `calculateDamage` y `applyDamage`**: se extrajeron de `dealDamage` para separar responsabilidades (cálculo del daño según nivel, y aplicación del daño a la salud), siguiendo el principio de responsabilidad única (SRP).
+
+## Cómo ejecutar los tests
+
+```bash
+mvn test
 ```
-Retrospective:
-    - Are you keeping up with the requirements? Has any iteration been a big challenge?
-    - Do you feel good about your design? Is it scalable and easily adapted to new requirements? 
-    - Is everything tested? Are you confident in your code?
-```
 
-4. Iteration Four:
-    - Characters may belong to one or more Factions.
-        * Newly created Characters belong to no Faction. 
-    - A Character may Join or Leave one or more Factions.
-    - Players belonging to the same Faction are considered Allies.
-    - Allies cannot Deal Damage to one another.
-    - Allies can Heal one another.
+Esto ejecuta los 20 tests del proyecto y genera el informe de cobertura con JaCoCo.
 
-5. Iteration Five:
-    - Characters can damage non-character things (props).
-        * Anything that has Health may be a target
-        * These things cannot be Healed and they do not Deal Damage
-        * These things do not belong to Factions; they are neutral
-        * When reduced to 0 Health, things are Destroyed
-        * As an example, you may create a Tree with 2000 Health
+## Cobertura de tests
 
-```
-Retrospective 
-    - What problems did you encounter? 
-    - What have you learned? Any new technique or pattern? 
-    - Share your design with others, and get feedback on different approaches.
-```
+![Cobertura de tests](assets/coverage.png)
+
+## Autora
+
+Andrea
