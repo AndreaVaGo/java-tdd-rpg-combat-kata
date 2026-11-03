@@ -1,6 +1,6 @@
 # Kata RPG Combat - Java TDD
 
-**Repositorio:** https://github.com/AndreaVaGo/kata-java-tdd-RPG-Combat
+**Repositorio:** https://github.com/AndreaVaGo/java-tdd-rpg-combat-kata
 
 ## Descripción
 
